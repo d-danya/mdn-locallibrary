@@ -1,0 +1,26 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}ll:books{% endblock title %}
+
+{% block content %}
+  <h2>Books</h2>
+  <ul>
+    {% for book in books %}
+      <li><a href="{{ book.get_absolute_url }}">{{book}}</a></li>
+    {% empty %}
+      <li>Пока нет ниодной книги</li>
+    {% endfor %}
+  </ul>
+
+  {% if is_paginated %}
+    <p>
+    	{% if page_obj.has_previous %}
+    	  <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">предыдущая</a>
+    	{% endif %}
+    	Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+    	{% if page_obj.has_next %}
+    	  <a href="{{request.page}}?page={{ page_obj.next_page_number }}">next</a>
+    	{% endif %}
+    </p>
+  {% endif %}
+{% endblock content %}

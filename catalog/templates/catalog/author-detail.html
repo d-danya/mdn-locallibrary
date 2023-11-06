@@ -1,0 +1,14 @@
+{% extends 'catalog/base.html' %}
+{% block title %}ll:{{ author }}{% endblock title %}
+{% block content %}
+  <p>{{author.first_name}} {{author.last_name}}</p>
+  <p>
+  	{{author.date_of_birth}}
+  	{% if author.date_of_deth %}
+  	  - {{ author.date_of_deth }}
+  	{% endif %}
+  </p>
+  {% for book in author.book_set.all %}
+    <p><a href="{{ book.get_absolute_url }}">{{ book }}</a></p>
+  {% endfor %}
+{% endblock content %}

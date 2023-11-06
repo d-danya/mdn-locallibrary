@@ -1,0 +1,28 @@
+{% extends 'catalog/base.html' %}
+{% block title %}ll:{{ book }}{% endblock title %}
+{% block content %}
+  <h2>{{ book }}</h2>
+  <p><b>ISBN</b>: {{ book.isbn }}</p>
+  <p><b>Summary</b>: {{ book.summary }}</p>
+  <p><b>Genre</b>: {% for genre in book.genre.all %}{{ genre }}{% if not forloop.last %},{% endif %}{% endfor %}</p>
+  <hr>
+  {% for instance in book.bookinstance_set.all %}
+    <p class="
+      {% if instance.status == 'a' or instance.status == 'm'%}
+        book-m_a
+      {% elif instance.status == 'o' %}
+        book-o
+      {% elif instance.status == 'r' %}
+        book-r
+      {% endif %}
+     ">
+     	{{ instance }}
+     </p>
+     <p>{{ instance.imprint }}</p>
+     {% if user.is_staff and instance.status == 'o' %}
+       <p><a href="{% url 'catalog:renew-book-librarian' instance.id %}">renew</a></p>
+     {% endif %}
+  {% empty  %}
+    <p>Унас пока нет ни одной копии этой книги</p>
+  {% endfor %}
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends 'catalog/base.html' %}
+{% block title %}ll:my borrowed{% endblock title %}
+{% block content %}
+  <h2>My borrowed:</h2>
+    <ul>
+      {% for bookins in books %}
+        <li {% if bookins.is_overdue %}class="overdue"{% endif %}>
+          <a href="{% url 'catalog:book-detail' bookins.book.pk %}">
+            {{ bookins.book }}
+          </a>
+          - {{ bookins.due_back }}: {{ bookins.borrower.get_username }}
+        </li>
+      {% empty %}
+        вы не занимаете ни одной книги
+      {% endfor %}
+    </ul>
+{% endblock content %}

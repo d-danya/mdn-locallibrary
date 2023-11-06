@@ -1,0 +1,33 @@
+{% extends 'catalog/base.html' %}
+{% block title %}ll:login{% endblock title %}
+{% block content %}
+
+  {% if form.errors %}
+    <p>your username and password didn't match. please try again</p>
+  {% endif %}
+  {% if next %}
+    {% if user.is_authenticated %}
+      <p>your account doesn't have access to thes page. to proceed, please logen with an account that has access</p>
+    {% else %}
+      <p>please login to see this page</p>
+    {% endif %}
+  {% endif %}
+  
+  <form method="post" action="{%url 'login'%}">
+    {% csrf_token %}
+    <table>
+      <tr>
+        <td>{{ form.username.lable_tag }}</td>
+        <td>{{ form.username }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.password.lable_tag }}</td>
+        <td>{{ form.password }}</td>
+      </tr>
+    </table>
+    <input type="submit" value="login">
+    <input type="hidden" name="next" value="{{ next }}">
+
+    <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+
+{% endblock content %}

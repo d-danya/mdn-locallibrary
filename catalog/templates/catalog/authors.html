@@ -1,0 +1,25 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}ll:authors{% endblock title %}
+
+{% block content %}
+  <ul>
+  {% for author in authors %}
+    <li><a href="{{ author.get_absolute_url }}">{{ author }}</a></li>
+  {% empty %}
+    <li>Пока нет ни одного автора</li>
+  {% endfor %}
+  </ul>
+
+  {% if is_paginated %}
+    <p>
+    	{% if page_obj.has_previous %}
+    	  <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">предыдущая</a>
+    	{% endif %}
+    	Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+    	{% if page_obj.has_next %}
+    	  <a href="{{request.page}}?page={{ page_obj.next_page_number }}">next</a>
+    	{% endif %}
+    </p>
+  {% endif %}
+{% endblock content %}

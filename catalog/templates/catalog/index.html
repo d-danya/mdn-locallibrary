@@ -1,0 +1,12 @@
+{% extends 'catalog/base.html' %}
+{% block title %}ll:home{% endblock title %}
+{% block content %}
+    <ul>
+    	<li><a href="{% url 'catalog:books' %}">Books</a>: {{ num_books }}</li>
+    	<li><a href="{% url 'catalog:authors' %}">Authors</a>: {{ num_authors }}</li>
+    	<li>Copies avalable: {{ num_instances_avalable }}</li>
+    	<li>Copies: {{ num_instances }}</li>
+    	<li>Genres: {{ num_genres }}</li>
+    	<li>Num visits:  {{ num_visits }}</li>
+    </ul>
+{% endblock content %}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>{%block title%}{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'catalog/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1><a href="{% url 'catalog:index' %}">locallibrary</a></h1>
+        {% if user.is_authenticated %}
+          <p>User: {{ user.get_username }} | <a href="{% url 'logout' %}">logout</a>
+          <p><a href="{% url 'catalog:my-borrowed' %}">my books</a></p>
+          {% if user.is_staff %}
+            <p><a href="{% url 'catalog:borrowed-books' %}">borrowed books</a></p>
+          {% endif %}
+        {% else %}
+          <a href="{% url 'login' %}">login</a>
+        {% endif %}
+        <hr>
+    </header>
+    {% block content %}{% endblock content %}
+    <footer>
+        <hr>
+        <p>&copy; locallibrary 2023</p>
+    </footer>
+</body>
+</html>

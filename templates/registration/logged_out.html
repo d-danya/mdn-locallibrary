@@ -1,0 +1,6 @@
+{% extends 'catalog/base.html' %}
+{% block title %}ll:logout{% endblock title %}
+{% block content %}
+  <p>Logged out</p>
+  <a href="{% url 'login' %}">Click here to login again</a>
+{% endblock content %}

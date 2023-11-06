@@ -1,0 +1,12 @@
+{% extends 'catalog/base.html' %}
+{% block title %}ll:borrowed books{% endblock title %}
+{% block content %}
+  <ul>
+    {% for bookins in books %}
+      <li>
+        <p>{{ bookins }}: {{ bookins.due_back }}|{{ bookins.borrower }} <a href="{% url 'catalog:renew-book-librarian' bookins.id %}">renew</a></p>
+      </li>
+    {% empty %}
+    {% endfor %}
+  </ul>
+{% endblock content %}
